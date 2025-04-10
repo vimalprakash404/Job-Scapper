@@ -28,3 +28,9 @@ class Logger:
             await self.bot.send_message(chat_id=self.user_id, text=message)
         except Exception as e:
             print(f"[Logger Error] Failed to send log: {e}")
+    
+    async def error(self, message: str):
+        try:
+            await self.bot.send_message(chat_id=self.user_id, text=message)
+        except Exception as e:
+            print(f"[Logger Error] Failed to send log: {e}")

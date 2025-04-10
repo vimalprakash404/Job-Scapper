@@ -5,13 +5,13 @@ from jobspy import scrape_jobs
 import os
 import asyncio
 from Logger import Logger  # Ensure Logger.info and Logger.error are async functions
-
+from dotenv import load_dotenv
 os.environ["PYTHONHTTPSVERIFY"] = "0"
 
 # Redis client
 redis_client = redis.Redis(
-    host=os.environ.get("REDIS_HOST", "localhost"),
-    port=int(os.environ.get("REDIS_PORT", 6379)),
+    host=os.getenv("REDIS_HOST", "localhost"),
+    port=int(os.getenv("REDIS_PORT", 6379)),
     decode_responses=True,
     username="default",
     password=os.environ.get("REDIS_PASSWORD", "password"),

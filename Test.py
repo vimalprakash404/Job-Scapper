@@ -8,7 +8,8 @@ from Logger import Logger  # Ensure Logger.info and Logger.error are async funct
 from dotenv import load_dotenv
 os.environ["PYTHONHTTPSVERIFY"] = "0"
 
-# Redis client
+# Redis 
+load_dotenv()  # Load .env variables
 redis_client = redis.Redis(
     host=os.getenv("REDIS_HOST", "localhost"),
     port=int(os.getenv("REDIS_PORT", 6379)),

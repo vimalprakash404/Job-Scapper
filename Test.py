@@ -26,8 +26,8 @@ def make_json_serializable(obj):
 
 
 # Input combinations
-job_titles = ["Software Engineer", "Backend Developer", "Frontend Developer"]
-locations = ["Kochi, India", "Bangalore, India", "Chennai, India"]
+job_titles = ["journalism", "Backend Developer", "Frontend Developer"]
+locations = ["Kerala"]
 
 # Unique collections
 unique_titles = []
@@ -43,16 +43,17 @@ async def main():
 
             try:
                 jobs = scrape_jobs(
-                    site_name=["linkedin"],
+                    site_name=["linkedin" , "indeed"],
                     search_term=title,
                     google_search_term=f"{title} jobs near {location} since yesterday",
                     location=location,
-                    results_wanted=20,
-                    hours_old=72,
+                    results_wanted=50,
+                    hours_old=240,
                     country_indeed="India",
-                    linkedin_fetch_description=True,
+                    # linkedin_fetch_description=True,
                 )
-
+                
+                
                 await logger.info(f"✅ Found {len(jobs)} jobs for '{title}' in '{location}'")
 
                 for _, row in jobs.iterrows():
@@ -84,7 +85,7 @@ async def main():
                 await logger.error(f"❌ Error scraping '{title}' in '{location}': {e}")
             
             await logger.info(f"⏳ Waiting 30 minutes before next combination...")
-            await asyncio.sleep(1800)  # 30 minutes
+            await asyncio.sleep(1)  # 30 minutes
 
     await logger.info("✅ All jobs pushed to Redis queue.")
     await logger.info(f"📍 Unique Locations Found: {unique_locations}")
